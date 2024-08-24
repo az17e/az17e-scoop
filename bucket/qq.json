@@ -31,10 +31,6 @@
         ]
     },
     "shortcuts": [["QQ.exe", "QQ-NT"]],
-    "64bit": {
-        "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Windows/QQ_9.9.12_240708_x64_01.exe#/dl.7z",
-        "hash": "75e666fa154939bd459d5e2bf2548504a791f3d7a58765ff9ee73e881bd0da10"
-    },
     "uninstaller": {
         "script": "Remove-Item -Path \"$env:PUBLIC\\Documents\\Tencent\" -Recurse -Force | Out-Null"
     },
