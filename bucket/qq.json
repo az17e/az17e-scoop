@@ -11,9 +11,6 @@
         "'%UserProfile%\\Documents\\Tencent Files'.",
         "Files produced at runtime are left in '%AppData%\\Tencent'."
     ],
-    "suggest": {
-        "LiteLoaderQQNT": "LiteLoaderQQNT"
-    },
     "architecture": {
         "64bit": {
             "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Windows/QQ_9.9.15_240822_x64_01.exe#/dl.7z",
