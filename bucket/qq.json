@@ -30,7 +30,7 @@
             "Set-Content -NoNewline -Path \"$configpath\\UserDataInfo.ini\" -Value \"[UserDataSet]`nUserDataSavePathType=2`nUserDataSavePath=$persist_dir\\QQ Files\""
         ]
     },
-    "shortcuts": [["QQ.exe", "QQ-NT"]],
+    "shortcuts": [["Files\\QQ.exe", "QQ-NT"]],
     "uninstaller": {
         "script": "Remove-Item -Path \"$env:PUBLIC\\Documents\\Tencent\" -Recurse -Force | Out-Null"
     },
