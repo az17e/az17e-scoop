@@ -1,60 +1,54 @@
 {
-    "version": "9.9.15.240808",
+    "version": "9.9.15",
     "description": "A new version of Tencent QQ based on Electron.",
-    "homepage": "https://im.qq.com/pcqq/index.shtml",
-    "license": "Unknown",
+    "homepage": "https://im.qq.com",
+    "license": {
+        "identifier": "Proprietary",
+        "url": "https://ti.qq.com/agreement/index.html"
+    },
     "notes": [
-        "The app runtime is persisted by scoop, while user date are storaged in",
-        "\"$env:USERPROFILE\\Documents\\Tencent Files\""
+        "Scoop doesn't persist your QQ data, by default they are stored in:",
+        "'%UserProfile%\\Documents\\Tencent Files'.",
+        "Files produced at runtime are left in '%AppData%\\Tencent'."
     ],
     "architecture": {
         "64bit": {
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Windows/QQ_9.9.15_240808_x64_01.exe#/dl.7z",
-            "hash": "07d1cb0f57d8a6ec78cd03a5a76d09a79bc306a78c49b0dd6203d875dee36828"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Windows/QQ_9.9.15_240822_x64_01.exe#/dl.7z",
+            "hash": "AF604FCA48757A5C9269498F30F0DC7FA9FD1BF7566BFDF9923DB02F0330CF6C"
         },
         "32bit": {
             "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Windows/QQ_9.9.15_240808_x86_01.exe#/dl.7z",
-            "hash": "316227c90e99f9ded6687cd046e99189352d43d5cdb4823b95d9ed5fd6e1351c"
+            "hash": "A62FBBA62D80EF8FCE690322A41652D848D991FC98B02BA0241BC10B5C14B5FC"
         }
     },
-    "extract_dir": "Files",
     "installer": {
         "script": [
-            "$S4UtilsPath = Find-BucketDirectory -Root -Name $bucket | Join-Path -ChildPath \"scripts\\S4Utils.psm1\"",
-            "if (Test-Path $S4UtilsPath) {",
-            "    Unblock-File $S4UtilsPath",
-            "    Import-Module $S4UtilsPath",
-            "    Mount-ExternalRuntimeData -Source \"$persist_dir\\QQ\" -AppData",
-            "    Remove-Module -Name S4Utils -ErrorAction SilentlyContinue",
-            "} else {",
-            "    Write-Host \"Missing files, please re-add Scoop4kariiin bucket and re-install this app.\" -ForegroundColor Red",
-            "}"
+            "$configpath = \"$env:PUBLIC\\Documents\\Tencent\\QQ\"",
+            "if (!(Test-Path \"$configpath\")) {",
+            "    New-Item -Path \"$configpath\" -Type Directory -Force | Out-Null",
+            "}",
+            "Set-Content -NoNewline -Path \"$configpath\\UserDataInfo.ini\" -Value \"[UserDataSet]`nUserDataSavePathType=2`nUserDataSavePath=$persist_dir\\QQ Files\""
         ]
     },
-    "shortcuts": [["QQ.exe", "QQ"]],
+    "shortcuts": [["QQ.exe", "QQ-NT"]],
+    "64bit": {
+        "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Windows/QQ_9.9.12_240708_x64_01.exe#/dl.7z",
+        "hash": "75e666fa154939bd459d5e2bf2548504a791f3d7a58765ff9ee73e881bd0da10"
+    },
     "uninstaller": {
-        "script": [
-            "$S4UtilsPath = Find-BucketDirectory -Root -Name $install.bucket | Join-Path -ChildPath \"scripts\\S4Utils.psm1\"",
-            "if (Test-Path $S4UtilsPath) {",
-            "    Unblock-File $S4UtilsPath",
-            "    Import-Module $S4UtilsPath",
-            "    Dismount-ExternalRuntimeData -Target \"QQ\" -AppData",
-            "    Remove-Module -Name S4Utils -ErrorAction SilentlyContinue",
-            "}"
-        ]
+        "script": "Remove-Item -Path \"$env:PUBLIC\\Documents\\Tencent\" -Recurse -Force | Out-Null"
     },
     "checkver": {
-        "url": "https://qq-web.cdn-go.cn/im.qq.com_new/4d7d217d/202408081656/windowsDownloadUrl.js",
-        "regex": "QQNT\\/Windows\\/QQ_([\\d\\.]+)_([\\d]+)_x64_01\\.exe",
-        "replace": "${1}.${2}"
+        "url": "https://im.qq.com/pcqq/index.shtml",
+        "regex": "v ([\\d.]+)"
     },
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Windows/QQ_$match1_$match2_x64_01.exe#/dl.7z"
+                "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Windows/QQ_$version_x64_01.exe#/dl.7z"
             },
             "32bit": {
-                "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Windows/QQ_$match1_$match2_x86_01.exe#/dl.7z"
+                "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Windows/QQ_$version_x86_01.exe#/dl.7z"
             }
         }
     }
