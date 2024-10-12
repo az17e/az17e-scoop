@@ -13,12 +13,7 @@
             ]
         }
     },
-    "shortcuts": [
-        [
-            "Motrix.exe",
-            "Motrix"
-        ]
-    ],
+    "shortcuts": [["Motrix.exe", "Motrix"]],
     "checkver": {
         "github": "https://github.com/agalwood/Motrix"
     },
